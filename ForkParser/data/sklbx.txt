@@ -1,0 +1,656 @@
+	https://skillbox.ru/company/
+
+	https://skillbox.ru/media/
+
+	https://skillbox.ru/code/
+
+	https://skillbox.ru/design/
+
+	https://skillbox.ru/marketing/
+
+	https://skillbox.ru/management/
+
+	https://skillbox.ru/games/
+
+	https://skillbox.ru/multimedia/
+
+		https://skillbox.ru/course/profession-data-scientist/
+
+		https://skillbox.ru/course/profession-graphdesigner/
+
+		https://skillbox.ru/course/3d-generalist/
+
+		https://skillbox.ru/course/profession-marketolog/
+
+		https://skillbox.ru/course/profession-business-analyst/
+
+		https://skillbox.ru/course/profession-python/
+
+		https://skillbox.ru/course/internet-marketolog/
+
+		https://skillbox.ru/course/cutting-sewing/
+
+		https://skillbox.ru/course/filmmaking/
+
+		https://skillbox.ru/course/devops/
+
+		https://skillbox.ru/course/educational-methodist/
+
+		https://skillbox.ru/course/smm-marketer/
+
+	https://skillbox.ru/career/
+
+	https://skillbox.ru/otzyvy/
+
+	https://skillbox.ru/contacts/
+
+	https://skillbox.ru/jobs/
+
+	https://skillbox.ru/teachers/
+
+	https://skillbox.ru/payments/
+
+		https://skillbox.ru/media/business/
+
+			https://skillbox.ru/media/business/ipo_koreyskogo_analoga_amazon_sdelalo_ego_osnovatelya_milliarderom/
+
+			https://skillbox.ru/media/business/facebook_i_google_otkazyvayutsya_platit_smi_v_ssha/
+
+		https://skillbox.ru/media/gamedev/
+
+			https://skillbox.ru/media/gamedev/prodazhi_igr_i_konsoley_neozhidanno_vyrosli/
+
+		https://skillbox.ru/media/education/
+
+			https://skillbox.ru/media/education/v_100_luchshikh_vuzov_razvivayushchikhsya_stran_po_versii_the_voshli_12_rossiyskikh_universitetov/
+
+			https://skillbox.ru/media/education/praktiku_formirovaniya_fgos_na_osnove_profstandartov_izmenyat/
+
+			https://skillbox.ru/media/business/nft_token_kartiny_prodali_za_69_mln_dollarov/
+
+			https://skillbox.ru/media/gamedev/loop_hero_prodali_tirazhom_v_500_tysyach_kopiy_za_nedelyu/
+
+			https://skillbox.ru/media/gamedev/v_xbox_game_pass_poyavilos_20_igr_ot_bethesda/
+
+			https://skillbox.ru/media/topic/news/
+
+			https://skillbox.ru/media/business/kak_zarabotat_na_gifkakh_s_kotami_ultimativnyy_gid_po_nft_artu/
+
+			https://skillbox.ru/media/topic/articles/
+
+			https://skillbox.ru/media/gamedev/sekret_uspekha_horizon_zero_dawn_kak_sozdavalas_odna_iz_samykh_yarkikh_igr_dlya_playstation_4/
+
+			https://skillbox.ru/media/business/retsept_khaypa_zastavit_plakat_i_smeyatsya_razbiraem_rolik_google_rossiya_s_ego_soavtorom/
+
+			https://skillbox.ru/media/gamedev/the_sinking_city_v_tsentre_skandala_khronologiya_konflikta_mezhdu_frogwares_i_nacon/
+
+			https://skillbox.ru/media/gamedev/sid_meyer_i_ego_nasledie_ot_civilizatsii_do_xcom/
+
+			https://skillbox.ru/media/education/obzor_kak_v_raznykh_stranakh_spasayut_shkolnoe_obrazovanie_posle_lokdaunov/
+
+			https://skillbox.ru/media/design/story_maria_basova/
+
+		https://skillbox.ru/media/design/
+
+			https://skillbox.ru/media/topic/history/
+
+			https://skillbox.ru/media/education/16_rossiyskikh_vuzov_v_top_100_predmetnogo_reytinga_qs_eto_proryv/
+
+			https://skillbox.ru/media/marketing/5_sistem_dlya_monitoringa_sotsialnykh_setey/
+
+		https://skillbox.ru/media/marketing/
+
+			https://skillbox.ru/media/topic/collections/
+
+			https://skillbox.ru/media/education/6_sposobov_sdelat_zanyatiya_v_zoom_dushevnee/
+
+			https://skillbox.ru/media/marketing/direktor_po_digital_marketingu_stoit_li_im_stanovitsya/
+
+			https://skillbox.ru/media/base/inkrement_i_dekrement_v_java/
+
+		https://skillbox.ru/media/code/
+
+		https://skillbox.ru/media/base/
+
+			https://skillbox.ru/media/gamedev/kak_sdelat_svoyu_pervuyu_igru_7_glavnykh_sovetov/
+
+			https://skillbox.ru/media/code/story_michael_grinchenko/
+
+			https://skillbox.ru/media/growth/18_servisov_dlya_produktivnoy_raboty_frilansera_udalyenshchika/
+
+		https://skillbox.ru/media/growth/
+
+		https://skillbox.ru/media/management/
+
+			https://skillbox.ru/media/business/alibaba_oshtrafuyut_bolee_chem_na_975_mln_dollarov/
+
+			https://skillbox.ru/media/business/reklamnye_stikery_novyy_sposob_monetizatsii_facebook_stories/
+
+			https://skillbox.ru/media/business/twitter_otkroet_dostup_k_golosovym_chatam/
+
+			https://skillbox.ru/media/business/avtor-nyan-cat-ustroil-auktsion-memov/
+
+			https://skillbox.ru/media/business/v_vr_prostranstvo_guma_vlozhat_bolee_100_mln_rubley/
+
+			https://skillbox.ru/media/business/oplata_vzglyadom_novaya_tekhnologiya_ot_x5_sbera_i_visa/
+
+			https://skillbox.ru/media/business/u_layfkhakera_novyy_vladelets/
+
+			https://skillbox.ru/media/business/ii_ot_facebook_uchitsya_po_foto_v_instagrame/
+
+			https://skillbox.ru/media/business/osnovatel_zoom_peredal_aktsii_na_summu_bolee_6_mlrd_dollarov/
+
+			https://skillbox.ru/media/gamedev/shou_play_play_play_ot_playstation_zhdyem_remeyk_ffvii_i_re_village/
+
+			https://skillbox.ru/media/gamedev/konsolnyy_rynok_postavil_rekord_po_prodazham_v_2020_godu/
+
+			https://skillbox.ru/media/gamedev/pubg_mobile_stala_samoy_kassovoy_mobilnoy_igroy_fevralya_2021_goda/
+
+			https://skillbox.ru/media/gamedev/capcom_predupredila_fanatov_resident_evil_village_o_moshennikakh/
+
+			https://skillbox.ru/media/gamedev/roblox_otsenili_v_45_mlrd_dollarov_v_pervyy_den_torgov_na_birzhe/
+
+			https://skillbox.ru/media/gamedev/htc_nauchila_vr_shlem_otslezhivat_dvizheniya_litsa/
+
+			https://skillbox.ru/media/gamedev/epic_games_podala_v_sud_na_google_na_etot_raz_v_avstralii/
+
+			https://skillbox.ru/media/gamedev/nikakogo_donata_fanaty_assassin_s_creed_prizyvayut_ubrat_helix_shop/
+
+			https://skillbox.ru/media/gamedev/newzoo_rynok_kibersporta_vyrastet_do_1_08_mlrd_dollarov_v_2021_godu/
+
+			https://skillbox.ru/media/education/gosduma_prinyala_vo_vtorom_chtenii_zakonoproekt_o_prosvetitelskoy_deyatelnosti/
+
+			https://skillbox.ru/media/education/v_vuzakh_poyavyatsya_prorektory_po_tsifrovizatsii/
+
+			https://skillbox.ru/media/education/kak_perevyernutoe_konsultirovanie_pomogaet_studentam_stat_otlichnikami/
+
+			https://skillbox.ru/media/education/u_vypusknikov_naryadu_s_ege_mogut_poyavitsya_tsifrovye_portfolio_dostizheniy/
+
+			https://skillbox.ru/media/education/audialov_vizualov_i_kinestetikov_nado_uchit_po_raznomu_pravda_ili_mif/
+
+			https://skillbox.ru/media/education/obyavlen_top_samykh_mediynykh_vuzov_rossii/
+
+			https://skillbox.ru/media/education/interview_pavel_luksha/
+
+			https://skillbox.ru/media/education/google_sozdal_obrazovatelnyy_portal_dlya_pedagogov_i_shkolnikov/
+
+			https://skillbox.ru/media/education/starsheklassniki_rasskazali_kakikh_predmetov_im_ne_khvataet_v_shkole/
+
+				https://skillbox.ru/media/topic/news/design/
+
+				https://skillbox.ru/media/topic/news/code/
+
+				https://skillbox.ru/media/topic/news/gamedev/
+
+				https://skillbox.ru/media/topic/news/business/
+
+				https://skillbox.ru/media/topic/news/marketing/
+
+				https://skillbox.ru/media/topic/news/management/
+
+				https://skillbox.ru/media/topic/news/growth/
+
+				https://skillbox.ru/media/topic/news/education/
+
+			https://skillbox.ru/media/design/story_kristina_piankova/
+
+			https://skillbox.ru/media/design/10_primerov_reklamnykh_proektov_retush_za_granyu_realnosti/
+
+			https://skillbox.ru/media/design/kak_rabotaet_opticheskiy_balans_v_dizayne/
+
+			https://skillbox.ru/media/design/osvaivaem_konstruktor_tilda_delaem_sayt_vizitku_s_nulya/
+
+			https://skillbox.ru/media/design/chem_zanimayutsya_graficheskie_dizaynery_samye_vostrebovannye_spetsializatsii/
+
+			https://skillbox.ru/media/design/story_nina_osmolovskaya/
+
+			https://skillbox.ru/media/design/kto_takoy_cg_dzheneralist_i_chem_on_zanimaetsya/
+
+			https://skillbox.ru/media/design/chto_takoe_eyetracking/
+
+			https://skillbox.ru/media/design/story_dmitry_scheglov/
+
+			https://skillbox.ru/media/design/sketching_v_kompyuternoy_grafike_prostye_sposoby_fiksirovat_idei/
+
+			https://skillbox.ru/media/design/kakimi_byvayut_litsenzii_na_izobrazheniya/
+
+			https://skillbox.ru/media/design/story_yana_volkova/
+
+			https://skillbox.ru/media/design/chto_takoe_voyny_brendov_i_chem_oni_interesny/
+
+				https://skillbox.ru/media/topic/history/design/
+
+				https://skillbox.ru/media/topic/history/code/
+
+				https://skillbox.ru/media/topic/history/gamedev/
+
+				https://skillbox.ru/media/topic/history/business/
+
+				https://skillbox.ru/media/topic/history/marketing/
+
+				https://skillbox.ru/media/topic/history/management/
+
+				https://skillbox.ru/media/topic/history/growth/
+
+				https://skillbox.ru/media/topic/history/education/
+
+			https://skillbox.ru/media/base/design/
+
+			https://skillbox.ru/media/base/code/
+
+			https://skillbox.ru/media/base/gamedev/
+
+			https://skillbox.ru/media/base/business/
+
+			https://skillbox.ru/media/base/marketing/
+
+			https://skillbox.ru/media/base/management/
+
+			https://skillbox.ru/media/base/growth/
+
+			https://skillbox.ru/media/base/education/
+
+			https://skillbox.ru/media/base/logicheskie_operatory_v_java/
+
+				https://skillbox.ru/media/base/code/java/
+
+			https://skillbox.ru/media/base/tip_boolean_i_operatory_sravneniya_v_java/
+
+			https://skillbox.ru/media/base/kak_verstalshchiku_rabotat_s_svg/
+
+			https://skillbox.ru/media/base/kak_rabotat_s_fonovymi_kartinkami_v_css/
+
+			https://skillbox.ru/media/base/isklyucheniya_v_java_chast_1/
+
+			https://skillbox.ru/media/base/massivy_v_java_sozdayem_zapolnyaem_ispolzuem/
+
+			https://skillbox.ru/media/base/kak_ustanovit_jdk_i_sredu_razrabotki_intellij_idea/
+
+			https://skillbox.ru/media/base/goryachie_klavishi_v_vscode/
+
+			https://skillbox.ru/media/base/java_code_style_kak_pravilno_oformlyat_kod_java/
+
+			https://skillbox.ru/media/base/kak_rabotat_s_docker_upakovka_spring_boot_prilozheniya_v_konteyner/
+
+			https://skillbox.ru/media/base/oblast_vidimosti_peremennykh_v_java/
+
+			https://skillbox.ru/media/base/kak_ustanovit_redis_v_os_windows_bez_ispolzovaniya_docker/
+
+			https://skillbox.ru/media/base/sozdanie_obektov_i_konstruktory/
+
+	https://skillbox.ru/code/git
+
+	https://skillbox.ru/code/veb-prilozheniya
+
+	https://skillbox.ru/code/backend-razrabotka
+
+	https://skillbox.ru/code/sozdanie saytov
+
+	https://skillbox.ru/code/freymvorki
+
+	https://skillbox.ru/code/frontend-razrabotka
+
+	https://skillbox.ru/code/vyorstka
+
+	https://skillbox.ru/code/bazy dannykh
+
+	https://skillbox.ru/code/python
+
+	https://skillbox.ru/code/javascript
+
+	https://skillbox.ru/code/figma
+
+	https://skillbox.ru/code/analitika
+
+	https://skillbox.ru/code/sql
+
+	https://skillbox.ru/code/java
+
+	https://skillbox.ru/code/data science
+
+	https://skillbox.ru/code/vizualizatsiya dannykh
+
+	https://skillbox.ru/code/mobilnye prilozheniya
+
+	https://skillbox.ru/code/testirovanie
+
+	https://skillbox.ru/code/komandnaya stroka (bash)
+
+	https://skillbox.ru/code/administrirovanie
+
+	https://skillbox.ru/code/rabota s tablitsami
+
+	https://skillbox.ru/code/php
+
+	https://skillbox.ru/code/ios
+
+	https://skillbox.ru/code/machine learning
+
+	https://skillbox.ru/code/algoritmy i struktury dannykh
+
+	https://skillbox.ru/code/android
+
+	https://skillbox.ru/code/matematika
+
+	https://skillbox.ru/design/portfolio dizaynera
+
+	https://skillbox.ru/design/dizayn sredy
+
+	https://skillbox.ru/design/frilans
+
+	https://skillbox.ru/design/photoshop
+
+	https://skillbox.ru/design/dizayn-kontseptsiya
+
+	https://skillbox.ru/design/kompozitsiya i tsvet
+
+	https://skillbox.ru/design/dizayn interera
+
+	https://skillbox.ru/design/dekorirovanie
+
+	https://skillbox.ru/design/risovanie i illyustratsiya
+
+	https://skillbox.ru/design/landshaftnyy dizayn
+
+	https://skillbox.ru/design/issledovanie auditorii
+
+		https://skillbox.ru/design/ux/ui
+
+	https://skillbox.ru/design/graficheskiy dizayn
+
+	https://skillbox.ru/design/dizayn interfeysov
+
+	https://skillbox.ru/design/biznes
+
+	https://skillbox.ru/design/analitika
+
+	https://skillbox.ru/design/brend
+
+	https://skillbox.ru/design/konkurentnyy analiz
+
+	https://skillbox.ru/design/sketching
+
+	https://skillbox.ru/design/adobe illustrator
+
+	https://skillbox.ru/design/veb-dizayn
+
+	https://skillbox.ru/design/fashion-design
+
+	https://skillbox.ru/design/photografia
+
+	https://skillbox.ru/design/sozdanie-saytov
+
+	https://skillbox.ru/design/obrabotka photografiy
+
+	https://skillbox.ru/design/uvelirniy dizain
+
+	https://skillbox.ru/design/instagram
+
+	https://skillbox.ru/design/figma
+
+	https://skillbox.ru/marketing/strategiya
+
+	https://skillbox.ru/marketing/issledovanie auditorii
+
+	https://skillbox.ru/marketing/analitika
+
+	https://skillbox.ru/marketing/konkurentnyy analiz
+
+	https://skillbox.ru/marketing/trafik
+
+	https://skillbox.ru/marketing/brend
+
+	https://skillbox.ru/marketing/smm
+
+	https://skillbox.ru/marketing/performance-marketing
+
+	https://skillbox.ru/marketing/menedzhment
+
+	https://skillbox.ru/marketing/prodazhi
+
+	https://skillbox.ru/marketing/upravlenie proektami
+
+	https://skillbox.ru/marketing/kontent-marketing
+
+	https://skillbox.ru/marketing/targetirovannaya reklama
+
+	https://skillbox.ru/marketing/facebook
+
+	https://skillbox.ru/marketing/instagram
+
+	https://skillbox.ru/marketing/upravlenie komandami
+
+	https://skillbox.ru/marketing/kommyuniti
+
+	https://skillbox.ru/marketing/rabota s tablitsami
+
+	https://skillbox.ru/marketing/vkontakte
+
+	https://skillbox.ru/marketing/yunit-ekonomika
+
+	https://skillbox.ru/marketing/razrabotka kontseptsii
+
+	https://skillbox.ru/marketing/lidogeneratsiya
+
+	https://skillbox.ru/marketing/digital-agentstva
+
+	https://skillbox.ru/marketing/biznes
+
+	https://skillbox.ru/marketing/kontekstnaya reklama
+
+	https://skillbox.ru/marketing/google tablitsy
+
+	https://skillbox.ru/marketing/pr
+
+	https://skillbox.ru/marketing/seo
+
+	https://skillbox.ru/marketing/crm
+
+	https://skillbox.ru/marketing/rabota s dokumentami
+
+	https://skillbox.ru/marketing/avtovoronki
+
+	https://skillbox.ru/marketing/predprinimatelstvo
+
+	https://skillbox.ru/marketing/vizualizatsiya dannykh
+
+	https://skillbox.ru/marketing/pabota-s-blogerami
+
+	https://skillbox.ru/marketing/frilans
+
+	https://skillbox.ru/marketing/finansy
+
+	https://skillbox.ru/marketing/e-mail
+
+	https://skillbox.ru/marketing/tiktok
+
+	https://skillbox.ru/marketing/orm
+
+	https://skillbox.ru/management/menedzhment
+
+	https://skillbox.ru/management/biznes
+
+	https://skillbox.ru/management/soft skills
+
+	https://skillbox.ru/management/upravlenie proektami
+
+	https://skillbox.ru/management/planirovanie
+
+	https://skillbox.ru/management/upravlenie komandami
+
+	https://skillbox.ru/management/predprinimatelstvo
+
+	https://skillbox.ru/management/motivatsiya
+
+	https://skillbox.ru/management/finansy
+
+	https://skillbox.ru/management/oformlenie prezentatsiy
+
+	https://skillbox.ru/management/rabota s tablitsami
+
+	https://skillbox.ru/management/strategiya
+
+	https://skillbox.ru/management/issledovanie auditorii
+
+	https://skillbox.ru/management/razvitie produkta
+
+	https://skillbox.ru/management/yunit-ekonomika
+
+	https://skillbox.ru/management/prodazhi
+
+	https://skillbox.ru/management/analitika
+
+	https://skillbox.ru/management/korporativnaya kultura
+
+	https://skillbox.ru/management/vizualizatsiya dannykh
+
+	https://skillbox.ru/management/administrirovanie
+
+	https://skillbox.ru/management/konkurentnyy analiz
+
+	https://skillbox.ru/management/google tablitsy
+
+	https://skillbox.ru/management/prodyusirovanie
+
+	https://skillbox.ru/management/hr
+
+		https://skillbox.ru/management/a/b testy
+
+	https://skillbox.ru/management/frilans
+
+	https://skillbox.ru/management/edtech
+
+	https://skillbox.ru/management/kommyuniti
+
+	https://skillbox.ru/management/kontent
+
+	https://skillbox.ru/management/custdev
+
+	https://skillbox.ru/management/lidogenerazia
+
+	https://skillbox.ru/management/testirovanie
+
+	https://skillbox.ru/management/crm
+
+	https://skillbox.ru/management/prototipirovanie
+
+	https://skillbox.ru/management/razrabotka kontseptsii
+
+		https://skillbox.ru/management/ux/ui
+
+	https://skillbox.ru/management/digital-agentstva
+
+	https://skillbox.ru/management/brend
+
+	https://skillbox.ru/management/python
+
+	https://skillbox.ru/management/stsenariy
+
+	https://skillbox.ru/management/storitelling
+
+	https://skillbox.ru/management/sql
+
+	https://skillbox.ru/management/algoritmy i struktury dannykh
+
+	https://skillbox.ru/management/framework
+
+	https://skillbox.ru/management/tvorchestvo
+
+	https://skillbox.ru/management/sozdanie_myziki
+
+	https://skillbox.ru/management/music
+
+	https://skillbox.ru/management/investitsii
+
+	https://skillbox.ru/games/geymdizayn
+
+	https://skillbox.ru/games/sport
+
+	https://skillbox.ru/games/kibersport
+
+	https://skillbox.ru/games/strategiya
+
+	https://skillbox.ru/games/2d- i 3d-grafika
+
+	https://skillbox.ru/games/upravlenie-proektami
+
+	https://skillbox.ru/games/kino
+
+	https://skillbox.ru/games/issledovanie-auditorii
+
+	https://skillbox.ru/games/konkurentnyy-analiz
+
+	https://skillbox.ru/games/menedzhment
+
+	https://skillbox.ru/games/3d-modelirovanie
+
+	https://skillbox.ru/games/analitika
+
+	https://skillbox.ru/games/upravlenie-komandami
+
+	https://skillbox.ru/games/3d
+
+	https://skillbox.ru/games/stsenariy
+
+	https://skillbox.ru/games/risovanie i illyustratsiya
+
+	https://skillbox.ru/games/unreal engine 4
+
+	https://skillbox.ru/games/razrabotka igr
+
+	https://skillbox.ru/games/testirovanie
+
+	https://skillbox.ru/games/kontsept-art
+
+	https://skillbox.ru/games/kompozitsiya_tsvet
+
+	https://skillbox.ru/games/unity
+
+	https://skillbox.ru/games/igrovye dvizhki
+
+	https://skillbox.ru/multimedia/video-proizvodstvo
+
+	https://skillbox.ru/multimedia/kino
+
+	https://skillbox.ru/multimedia/storitelling
+
+	https://skillbox.ru/multimedia/montazh
+
+	https://skillbox.ru/multimedia/abletonlive
+
+	https://skillbox.ru/multimedia/svedenie-i-mastering
+
+	https://skillbox.ru/multimedia/freelance
+
+	https://skillbox.ru/multimedia/stsenariy
+
+	https://skillbox.ru/multimedia/sozdanie-myziky
+
+	https://skillbox.ru/multimedia/ypravlenie-proektami
+
+	https://skillbox.ru/multimedia/teoria-myziky
+
+	https://skillbox.ru/multimedia/adobepremier
+
+	https://skillbox.ru/multimedia/management
+
+	https://skillbox.ru/multimedia/business
+
+	https://skillbox.ru/multimedia/protools
+
+	https://skillbox.ru/multimedia/saund-design
+
+	https://skillbox.ru/multimedia/istoriy-kino
+
+	https://skillbox.ru/multimedia/rabota-s-kameroi
+
+	https://skillbox.ru/multimedia/ableton
+
+	https://skillbox.ru/multimedia/avid
+
+	https://skillbox.ru/multimedia/davinci
+
+	https://skillbox.ru/multimedia/osnovy-kompozisii
+
+	https://skillbox.ru/multimedia/produsirovanie-video
+
