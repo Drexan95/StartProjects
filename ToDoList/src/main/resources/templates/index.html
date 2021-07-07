@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список дел</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Количество дел(<span th:text = "${dealsCount}">0</span>)</h1>
+<p th:each="deal : ${deals}">
+    <a th:text="${deal.name}"></a>
+</p>
+</body>
+</html>
