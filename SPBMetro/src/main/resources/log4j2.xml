@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+    <appenders>
+
+        <File name="Errors" fileName="logs/errors.log" append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+            <MarkerFilter marker="inputError" onMatch="ACCEPT" onMismatch="DENY"/>
+             <Filters>
+                 <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL" />
+            </Filters>
+        </File>
+
+        <File name="Exceptions" fileName="logs/exceptions.log" append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-4level %logger{36} - %msg%n"/>
+            <MarkerFilter marker="exceptionMarker" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+            </Filters>
+        </File>
+
+        <File name="SearchLogs" fileName="logs/search.log" append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-3level %logger{36} - %msg%n"/>
+            <MarkerFilter marker="searchMarker" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Filters>
+                <ThresholdFilter level="TRACE" onMatch="DENY" onMismatch="NEUTRAL" />
+            </Filters>
+        </File>
+    </appenders>
+
+
+    <loggers>
+        <root level="trace"  >
+            <appender-ref ref="Errors" level="info"/>
+            <appender-ref ref="SearchLogs" level="trace"/>
+            <appender-ref ref="Exceptions" level="warn"/>
+        </root>
+    </loggers>
+</configuration>
