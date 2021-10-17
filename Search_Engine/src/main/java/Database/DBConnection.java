@@ -22,10 +22,10 @@ public class DBConnection {
 
 
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "ynzohwtd101";
+    private static final String DB_PASS = "password";
 
 
-    public DBConnection() throws SQLException {
+    private DBConnection() throws SQLException {
 
     }
 

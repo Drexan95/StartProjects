@@ -39,7 +39,7 @@ public class PageResults {
     }
 
 
-    public List<Lemma> getLemms(SearchRequest request) throws IOException {
+    private List<Lemma> getLemms(SearchRequest request) throws IOException {
         try {
             Lem.createMorph();
             statement = DBConnection.getConnection().createStatement();
@@ -79,7 +79,7 @@ public class PageResults {
      * @throws NullPointerException
      */
     @Transactional
-    public List<Lemma> getListOfUrls(SearchRequest request) throws IOException, SQLException, NullPointerException {
+    private List<Lemma> getListOfUrls(SearchRequest request) throws IOException, SQLException, NullPointerException {
         List<Lemma> frequencyLemms = getLemms(request);
         AtomicInteger siteId = new AtomicInteger();
         int pageCount = 0;
@@ -166,7 +166,7 @@ public class PageResults {
      * @throws IOException
      */
     @Transactional
-    public List<Page> calculateRelevancy(List<Lemma> lemms) throws SQLException, IOException {
+    private List<Page> calculateRelevancy(List<Lemma> lemms) throws SQLException, IOException {
         ConcurrentHashMap<Page, Float> pageAndRelevancy = new ConcurrentHashMap<>();//страницы где встречаются леммы
         List<Page> sortedPages = new ArrayList<>();
         int[] lemmsArray = new int[lemms.size()];
