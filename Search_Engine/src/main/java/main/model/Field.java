@@ -16,9 +16,10 @@ public class Field {
         this.selector = selector;
         this.weight = weight;
     }
-public Field(){
+    public Field(){
 
-}
+    }
+
     @Id
     private Integer Id;
     @Column(name = "name")

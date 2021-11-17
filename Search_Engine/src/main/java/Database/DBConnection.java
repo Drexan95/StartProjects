@@ -1,28 +1,15 @@
 package Database;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.sql.ordering.antlr.Factory;
-import org.springframework.data.jpa.provider.HibernateUtils;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBConnection {
     private static Connection connection;
 
 
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "password";
+    private static final String DB_PASS = "ynzohwtd101";
 
 
     private DBConnection() throws SQLException {

@@ -1,7 +1,7 @@
 package main.model;
 
 public enum StatusType {
-    indexing,
-    indexed,
-    failed
+    INDEXING,
+    INDEXED,
+    FAILED
 }

@@ -5,6 +5,7 @@ import Lemmatizer.Lem;
 import lombok.Getter;
 import lombok.Setter;
 import main.model.*;
+import main.repository.*;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -130,7 +131,7 @@ public class URLCollector extends RecursiveTask<Integer> {
                 if (!path.equals(root)) {
                     path = path.split(root)[1];
                 }
-                path = Helper.slashAtEnd(path);
+                path = HTMLDataFilter.slashAtEnd(path);
                 page = new Page(pageId.get(), path, code, content);
                 thisPageId = page.getId();
                 addPage(page);
@@ -153,15 +154,15 @@ public class URLCollector extends RecursiveTask<Integer> {
                 for (int i = 0; i < pageElements.size(); i++) {
                     element = pageElements.get(i);
 
-                    String text = Helper.findText(element.toString());
-                    if (Helper.elementIsRedundant(element, text) || code == 204) {
+                    String text = HTMLDataFilter.findText(element.toString());
+                    if (HTMLDataFilter.elementIsRedundant(element, text) || code == 204) {
                         element.remove();
                         continue;
                     }
 
                     //==================================FIELDS==========================================//
 
-                    float fieldWeight = Helper.calculateFieldWeight(element);
+                    float fieldWeight = HTMLDataFilter.calculateFieldWeight(element);
                     /**
                      * Fields
                      */
@@ -240,8 +241,8 @@ public class URLCollector extends RecursiveTask<Integer> {
     private void collectLinks(Elements links) {
 
         for (Element element : links) {
-            String url = Helper.slashAtEnd(element.absUrl("href"));
-            if (visitedInternalLink.contains(url) || Helper.skip(url, path, root) || !Helper.isInternalLink(url, root)) {
+            String url = HTMLDataFilter.slashAtEnd(element.absUrl("href"));
+            if (visitedInternalLink.contains(url) || HTMLDataFilter.skip(url, root) || !HTMLDataFilter.isInternalLink(url, root)) {
                 continue;
             }
             urls.add(url);

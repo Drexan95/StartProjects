@@ -5,9 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "search_index")
 public class SearchIndex {
-public SearchIndex(){
 
-}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

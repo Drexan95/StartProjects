@@ -1,6 +1,6 @@
 spring.datasource.url:  jdbc:mysql://localhost:3306/search_engine?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Tomsk&allowPublicKeyRetrieval=true&useSSL=false
-spring.datasource.username: username
-spring.datasource.password: password
+spring.datasource.username: root
+spring.datasource.password: ynzohwtd101
 spring:
       jpa:
         properties:
@@ -18,5 +18,7 @@ prefix: search_engine.
 sites :
     url: http://www.playback.ru
     name: Плейбек.ру
+
+fieldweight: 1,0.8f,0.6f,0.4f
 
 user_agent: YahoooSearchBot

@@ -3,6 +3,10 @@ package main.model;
 import Database.DBConnection;
 import lombok.Getter;
 import lombok.Setter;
+import main.repository.FieldRepository;
+import main.repository.LemmaRepository;
+import main.repository.PageRepository;
+import main.repository.SiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +15,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class Statistics {
 
+    @Autowired
+    private PageRepository pageRepository;
+    @Autowired
+    private FieldRepository fieldRepository;
+    @Autowired
+    private LemmaRepository lemmaRepository;
     @Autowired
     private SiteRepository siteRepository;
     private boolean result;
@@ -29,26 +38,21 @@ public class Statistics {
     @Getter
     private long lemmas;
     @Getter
-    @Setter
-    private boolean isIndexing;
-    private List<Site> detailed = new ArrayList<>();
-    public Statistics(){
-
-    }
+    private final List<Site> detailed = new ArrayList<>();
 
     public void getDetailedData(Site site) throws SQLException {
       Statement statement =  DBConnection.getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT (SELECT COUNT(id) FROM lemma WHERE site_id = "+site.getId()+") AS lemmscount," +
                 "(SELECT COUNT(id) FROM page WHERE site_id = "+site.getId()+") as pagecount");
-        Optional<Site> siteOptional = siteRepository.findById(site.getId());
+//        Optional<Site> siteOptional = siteRepository.findById(site.getId());
         while (resultSet.next()){
             long pageCount = resultSet.getInt("pagecount");
             long lemmsCount = resultSet.getInt("lemmscount");
-            if(siteOptional.isPresent()){
-                siteOptional.get().setLemmas(lemmsCount);
-                siteOptional.get().setPages(pageCount);
-                detailed.add(siteOptional.get());
-            }
+
+                site.setLemmas(lemmsCount);
+                site.setPages(pageCount);
+                detailed.add(site);
+
 
         }
 

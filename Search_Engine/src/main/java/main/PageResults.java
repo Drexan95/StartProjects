@@ -2,9 +2,11 @@ package main;
 
 import Database.DBConnection;
 import Lemmatizer.Lem;
-import UrlService.Helper;
-import main.SearchRequest;
+import UrlService.HTMLDataFilter;
 import main.model.*;
+import main.repository.LemmaRepository;
+import main.repository.PageRepository;
+import main.repository.SiteRepository;
 import one.util.streamex.StreamEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,9 +36,6 @@ public class PageResults {
     @Autowired
     private SiteRepository siteRepository;
 
-    public PageResults() {
-
-    }
 
 
     private List<Lemma> getLemms(SearchRequest request) throws IOException {
@@ -84,7 +83,7 @@ public class PageResults {
         AtomicInteger siteId = new AtomicInteger();
         int pageCount = 0;
         if (!request.getSiteUrl().equals("")) {
-            String siteUrl = Helper.slashAtEnd(request.getSiteUrl());
+            String siteUrl = HTMLDataFilter.slashAtEnd(request.getSiteUrl());
             Iterable<Site> siteIterable = siteRepository.findAll();
             for (Site site : siteIterable) {
                 if (site.getUrl().equals(siteUrl)) {
@@ -222,7 +221,7 @@ public class PageResults {
                     page.setTitle(m.group(1));
                 }
                 HashMap<String, String> wordAndLemma = null;
-                content = Helper.findText(content);
+                content = HTMLDataFilter.findText(content);
                 int contentLentgh = content.length();
                 String finalContent = content;
                 try {

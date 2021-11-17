@@ -9,13 +9,12 @@ import java.util.Date;
 @Entity
 @Table(name = "site")
 public class Site {
-    public Site(){
 
-    }
 
     public Site(String url){
         this.url = url;
     }
+    public Site(){}
 
 
     @Id

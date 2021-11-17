@@ -34,15 +34,16 @@ public class Lemma implements Comparable<Lemma> {
     private List<Page> urls = new ArrayList<>(); ;
     @Transient
     private Map<Page,Float> pageAndRank;
-    public Lemma(){
 
-    }
 
     public Lemma(int Id,String name,int frequency){
         this.Id = Id;
         this.name = name;
         this.frequency = frequency;
         pageAndRank = new HashMap<>();
+
+    }
+    public Lemma(){
 
     }
 
