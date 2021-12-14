@@ -4,7 +4,7 @@ YahoooSearchBot is a Search Engine SpringBoot application
 
 Stack:JDBC,JSOUP,JSON,JPA Hibernate,Spring Boot.
 
-Rest API provides interface to start/stop scanning sites given in application.yml file, extract text from html elements  and collect lemmas from it using morphology library and store in SQL database with info where it's found and how many times.All transactions to db provides by JPA.
+Rest API provides interface to start/stop scanning sites given in application.yml file, extract text from html elements  and collect lemmas from it using morphology library and store in MySQL database with info where it's found and how many times.All transactions to db provides by JPA.
 You can customize which sites to index, just change application.yml sites.
 
 After indexing is complete you can search pages by query request,application calculate relevancy  and return sorted pages with small snippet of text where words occur and url head.
