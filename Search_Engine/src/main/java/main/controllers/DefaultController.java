@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public class DefaultController {
 
 
-    @RequestMapping("/YahoooSearchBot")
+    @RequestMapping("/VEGA")
     public String index() {
         return "index";
     }

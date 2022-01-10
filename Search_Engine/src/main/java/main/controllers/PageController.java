@@ -27,7 +27,7 @@ public class PageController {
 
 
 
-
+    @Transactional
     @GetMapping("/search")
     public ResponseEntity<?> search(@RequestParam(name = "query") String query, @Nullable String site,@Nullable Integer limit,@Nullable Integer offset) throws SQLException, IOException, JSONException
     {

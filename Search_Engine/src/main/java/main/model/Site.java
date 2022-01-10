@@ -2,6 +2,7 @@ package main.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,12 +17,12 @@ public class Site {
     }
     public Site(){}
 
-
+    @JsonIgnore
     @Id
-    @Column(name = "Id")
+    @Column(name = "id")
     @Getter
     @Setter
-    private int Id;
+    private int id;
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     @Getter

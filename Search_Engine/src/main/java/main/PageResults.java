@@ -3,6 +3,7 @@ package main;
 import Database.DBConnection;
 import Lemmatizer.Lem;
 import UrlService.HTMLDataFilter;
+import lombok.Getter;
 import main.model.*;
 import main.repository.LemmaRepository;
 import main.repository.PageRepository;
@@ -35,6 +36,8 @@ public class PageResults {
     private LemmaRepository lemmaRepository;
     @Autowired
     private SiteRepository siteRepository;
+    @Getter
+    private long maxResults;
 
 
 
@@ -83,7 +86,7 @@ public class PageResults {
         AtomicInteger siteId = new AtomicInteger();
         int pageCount = 0;
         if (!request.getSiteUrl().equals("")) {
-            String siteUrl = HTMLDataFilter.slashAtEnd(request.getSiteUrl());
+            String siteUrl = request.getSiteUrl();
             Iterable<Site> siteIterable = siteRepository.findAll();
             for (Site site : siteIterable) {
                 if (site.getUrl().equals(siteUrl)) {
@@ -98,11 +101,12 @@ public class PageResults {
 
         }
 
-        //===============================================LEMMS CAPTURED=======================================================================
-
-        ResultSet result = statement.executeQuery("SELECT COUNT(id) as page_count  FROM page");
-        while (result.next()) {
-            pageCount = result.getInt("page_count");
+        //=====================================================================================================================
+        else {
+            ResultSet result = statement.executeQuery("SELECT COUNT(id) as page_count  FROM page");
+            while (result.next()) {
+                pageCount = result.getInt("page_count");
+            }
         }
 
 /**
@@ -138,7 +142,7 @@ public class PageResults {
         try {
             frequencyLemms.removeIf(lemma -> 100 / (finalPageCount / lemma.getUrls().size()) > 40 && frequencyLemms.size() > 1);
             if (frequencyLemms.size() == 1) {
-                final int RESULTS_TO_SHOW = 10;
+                final int RESULTS_TO_SHOW = 20;
                 frequencyLemms.get(0).setUrls(frequencyLemms.get(0).getUrls().stream().limit(RESULTS_TO_SHOW).collect(Collectors.toList()));
             }
             frequencyLemms.stream().sorted().skip(1)
@@ -172,11 +176,11 @@ public class PageResults {
         for (int i = 0; i <= lemms.size() - 1; i++) {
             lemmsArray[i] = lemms.get(i).getId();
         }
-        String prepareSQl = " UNION ALL (SELECT SUM(lemma_rank) as lemmSum from search_index where page_id= %d and lemma_id = %d)";
+        String prepareSQl = " UNION ALL (SELECT SUM(search_index.rank) as lemmSum from search_index where page_id= %d and lemma_id = %d)";
         lemms.forEach(lemma -> {
             lemma.getUrls().forEach(page -> {
                 page.getLemms().add(lemma.getName());
-                StringBuilder sql = new StringBuilder("SELECT SUM(lemmSum) FROM((SELECT sum(lemma_rank) as lemmSum FROM search_index WHERE lemma_id = "
+                StringBuilder sql = new StringBuilder("SELECT SUM(lemmSum) FROM((SELECT sum(search_index.rank) as lemmSum FROM search_index WHERE lemma_id = "
                         + lemmsArray[0] + " AND page_id = " + page.getId() + ")");
                 for (int i = 1; i < lemmsArray.length; i++) {
                     sql.append(String.format(prepareSQl, page.getId(), lemmsArray[i]));
@@ -199,7 +203,7 @@ public class PageResults {
          * Calculate relevancy
          */
         pageAndRelevancy.keySet().forEach(page -> {
-            page.setComparativeRelevancy(page.getAbsRelevancy() / Collections.max(pageAndRelevancy.values()));
+            page.setRelevance(page.getAbsRelevancy() / Collections.max(pageAndRelevancy.values()));
             sortedPages.add(page);
         });
 
@@ -257,6 +261,7 @@ public class PageResults {
                 page.setSnippet(snippet);
                 builder.setLength(0);
                 results.add(page);
+                maxResults = results.size();
 
             });
         } catch (SQLException | IOException ex) {

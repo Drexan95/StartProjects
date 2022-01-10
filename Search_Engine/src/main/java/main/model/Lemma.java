@@ -16,10 +16,10 @@ public class Lemma implements Comparable<Lemma> {
 @Setter
     private String name;
     @Id
-    @Column(name= "Id")
+    @Column(name= "id")
     @Setter
     @Getter
-    private int Id;
+    private int id;
     @Setter
     @Getter
     @Column(name = "frequency")
@@ -37,7 +37,7 @@ public class Lemma implements Comparable<Lemma> {
 
 
     public Lemma(int Id,String name,int frequency){
-        this.Id = Id;
+        this.id = Id;
         this.name = name;
         this.frequency = frequency;
         pageAndRank = new HashMap<>();

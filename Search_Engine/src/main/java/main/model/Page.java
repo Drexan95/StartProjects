@@ -15,12 +15,12 @@ import java.util.List;
 @JsonIgnoreProperties(value = { "content","lemms","lemmRank" })
 public class Page implements  Comparable<Page>{
 
-
+@JsonIgnoreProperties
     @javax.persistence.Id
-    @Column(name ="Id")
+    @Column(name ="id")
     @Setter
     @Getter
-    private int Id;
+    private int id;
     @Column(name = "path")
     @Setter
     @Getter
@@ -32,11 +32,19 @@ public class Page implements  Comparable<Page>{
     @JsonIgnore
     @Type(type = "text")
     private String content;
+    @Transient
+    @Getter
+    @Setter
+    private String site;
 
     @Column(name = "site_id")
     @Getter
     @Setter
-    private Integer siteId;
+    private Integer siteid;
+    @Transient
+    @Getter
+    @Setter
+    private String siteName;
     @Transient
     @Getter
     @Setter
@@ -48,9 +56,10 @@ public class Page implements  Comparable<Page>{
     @Transient
     @Setter
     @Getter
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private float absRelevancy;
     @Transient
-    private float comparativeRelevancy;
+    private float relevance;
     @Transient
     @Getter
     @Setter
@@ -58,8 +67,8 @@ public class Page implements  Comparable<Page>{
     @Transient
     private float lemmRank;
 
-    public Page(int Id, String path,int code,String content) {
-        this.Id = Id;
+    public Page(int id, String path,int code,String content) {
+        this.id = id;
         this.code = code;
         this.content = content;
         this.path = path;
@@ -85,18 +94,18 @@ public class Page implements  Comparable<Page>{
     }
 
 
-    public float getComparativeRelevancy() {
-        return comparativeRelevancy;
+    public float getRelevance() {
+        return relevance;
     }
 
-    public void setComparativeRelevancy(float comparativeRelevancy) {
-        this.comparativeRelevancy = comparativeRelevancy;
+    public void setRelevance(float relevance) {
+        this.relevance = relevance;
     }
 
     @Override
     public String toString(){
 
-        return path +"\n "+getTitle()+"\n Релевантность : "+getComparativeRelevancy()+"\n"+"Леммы :"+"\n"+lemms+"\n"+"Отрывок текста:"+"\n"+getSnippet();
+        return path +"\n "+getTitle()+"\n Релевантность : "+ getRelevance()+"\n"+"Леммы :"+"\n"+lemms+"\n"+"Отрывок текста:"+"\n"+getSnippet();
     }
     @Override
     public int hashCode(){
@@ -128,9 +137,9 @@ public class Page implements  Comparable<Page>{
 
     @Override
     public int compareTo(Page o) {
-    if(this.comparativeRelevancy > o.comparativeRelevancy){
+    if(this.relevance > o.relevance){
         return -1;
-    }else if(this.comparativeRelevancy < o.comparativeRelevancy){
+    }else if(this.relevance < o.relevance){
         return 1;
     }
     else return 0;

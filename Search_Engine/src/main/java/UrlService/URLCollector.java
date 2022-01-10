@@ -93,9 +93,10 @@ public class URLCollector extends RecursiveTask<Integer> {
     public void createCollector(Site site) throws SQLException, IOException {
         Lem.createMorph();
         this.setSite(site);
-        path = site.getUrl();
+        path = HTMLDataFilter.slashAtEnd( site.getUrl());
         root = site.getUrl();
         ranks = new ConcurrentHashMap<>();
+        visitedInternalLink.add(HTMLDataFilter.slashAtEnd( root));
     }
 
     //Task
@@ -113,7 +114,7 @@ public class URLCollector extends RecursiveTask<Integer> {
     protected Integer compute() {
         try {
             Connection.Response response;
-            response = Jsoup.connect(path).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) YahoooSearchBot/1.0.0 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36")
+            response = Jsoup.connect(path).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) VEGASearchBot/1.0.0 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36")
                     .referrer("http://www.google.ru")
                     .execute();
             Document doc = response.parse();
@@ -128,11 +129,18 @@ public class URLCollector extends RecursiveTask<Integer> {
              */
             synchronized (pageId) {
                 pageId.getAndIncrement();
-                if (!path.equals(root)) {
-                    path = path.split(root)[1];
-                }
-                path = HTMLDataFilter.slashAtEnd(path);
+//                if(path.equals(root)){
+//                    path = HTMLDataFilter.slashAtEnd(path);
+//                }
+//                else  {
+//                    path = path.split(root)[1];
+//
+//                }
+                path = path.split(root)[1];
+//                path = HTMLDataFilter.slashAtBeggining(path);
                 page = new Page(pageId.get(), path, code, content);
+                page.setSite(site.getUrl());
+                page.setSiteName(site.getName());
                 thisPageId = page.getId();
                 addPage(page);
                 try {//update time after each page
@@ -241,7 +249,7 @@ public class URLCollector extends RecursiveTask<Integer> {
     private void collectLinks(Elements links) {
 
         for (Element element : links) {
-            String url = HTMLDataFilter.slashAtEnd(element.absUrl("href"));
+            String url = element.absUrl("href");
             if (visitedInternalLink.contains(url) || HTMLDataFilter.skip(url, root) || !HTMLDataFilter.isInternalLink(url, root)) {
                 continue;
             }
@@ -288,7 +296,8 @@ public class URLCollector extends RecursiveTask<Integer> {
     }
 
     private void addPage(Page page) {
-        page.setSiteId(site.getId());
+        page.setSiteid(site.getId());
+        page.setSiteName(site.getName());
         pageRepository.save(page);
     }
 

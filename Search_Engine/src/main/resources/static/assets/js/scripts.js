@@ -1444,7 +1444,7 @@ table().init();
 var API = function(){
     function sendData(address, type, data, cb, $this) {
         $.ajax({
-            url: 'https://virtserver.swaggerhub.com/lunpully/adminSearch/1.0.0' + address,
+            url: backendApiUrl + address,
             type: type,
             dataType: 'json',
             data: data,

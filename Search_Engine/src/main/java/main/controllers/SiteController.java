@@ -1,7 +1,7 @@
 package main.controllers;
 
 import main.ManagementCommands;
-import main.model.Statistics;
+import main.model.StatisticsInfo;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,7 +20,7 @@ import java.text.ParseException;
 @RestController
 public class SiteController {
     @Autowired
-    private Statistics statistics;
+    private StatisticsInfo statisticsInfo;
 
     @Autowired
     private ManagementCommands managementCommands;
@@ -39,7 +39,7 @@ public class SiteController {
 
 
     @GetMapping("/statistics")
-    public ResponseEntity<?> getStatistics() {
+    public ResponseEntity<?> getStatistics() throws JSONException {
         return managementCommands.getStatistics();
 
     }

@@ -18,10 +18,10 @@ public class Lem  {
     static final List<String> signs = Arrays.asList("ПРЕДЛ", "МЕЖД", "СОЮЗ", "ЧАСТ");
     static LuceneMorphology luceneMorphology= null;
 
-    public static void main(String[] args) throws IOException {
-        createMorph();
-        System.out.println(luceneMorphology.getNormalForms("народного"));
-    }
+//    public static void main(String[] args) throws IOException {
+//        createMorph();
+//        System.out.println(luceneMorphology.getNormalForms("народного"));
+//    }
 
     public static void createMorph() throws IOException {
         luceneMorphology = new RussianLuceneMorphology();

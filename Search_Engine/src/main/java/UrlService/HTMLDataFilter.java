@@ -1,10 +1,7 @@
 package UrlService;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -109,9 +106,16 @@ public class HTMLDataFilter {
    }
 
 
+//    public static  String slashAtBeggining(String siteUrl){
+//        if(!siteUrl.startsWith("/")){
+//            siteUrl ="/"+ siteUrl;
+//        }
+//        return siteUrl;
+//    }
+
     public static  String slashAtEnd(String siteUrl){
         if(!siteUrl.endsWith("/")){
-            siteUrl = siteUrl+"/";
+            siteUrl = siteUrl+ "/";
         }
         return siteUrl;
     }

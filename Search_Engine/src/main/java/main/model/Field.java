@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "field")
 public class Field {
     public Field(Integer Id,String name,String selector,float weight){
-        this.Id = Id;
+        this.id = Id;
         this.name = name;
         this.selector = selector;
         this.weight = weight;
@@ -21,7 +21,7 @@ public class Field {
     }
 
     @Id
-    private Integer Id;
+    private Integer id;
     @Column(name = "name")
     private String name;
     @Column(name = "selector")

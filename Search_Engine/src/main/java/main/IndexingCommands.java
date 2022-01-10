@@ -65,11 +65,11 @@ public class IndexingCommands {
         statement.executeUpdate("DELETE FROM search_index");
         statement.executeUpdate("ALTER TABLE search_index AUTO_INCREMENT=1");
         for (int i = 0; i < urls.length; i++) {
-            Site site = new Site((HTMLDataFilter.slashAtEnd(urls[i])));
+            Site site = new Site(urls[i]);
             site.setId(i + 1);
             site.setName(names[i]);
             site.setStatusTime(simpleDateFormat.parse(simpleDateFormat.format(new Date())));
-            site.setStatus(StatusType.FAILED);
+            site.setStatus(StatusType.INDEXING);
             site.setLastError(null);
             siteRepository.save(site);
             URLCollector collector = new URLCollector();
@@ -133,7 +133,7 @@ public class IndexingCommands {
     public ResponseEntity<String> addPage(@RequestParam(name = "url") String url) throws SQLException, IOException, JSONException
     {
         Iterable<Site> sites = siteRepository.findAll();
-        Page page = new Page(HTMLDataFilter.slashAtEnd(url));
+        Page page = new Page(url);
         Site pageSite = new Site();
         JSONObject response = new JSONObject();
 
@@ -142,24 +142,29 @@ public class IndexingCommands {
         sites.forEach(site -> {
             if (pageUrl.startsWith(site.getUrl())) {
 
-                page.setSiteId(site.getId());
+                page.setSiteid(site.getId());
+                page.setSite(site.getUrl());
+                page.setSiteName(site.getName());
                 pageSite.setId(site.getId());
                 pageSite.setUrl(site.getUrl());
                 pageSite.setStatus(site.getStatus());
                 if(pageUrl.equals(site.getUrl())){
-                    page.setPath(site.getUrl());
+                    page.setPath("/");
                 }
                 else   {
                     page.setPath(pageUrl.split(site.getUrl())[1]);
                 }
             }
-            else page.setPath("");
+            else{
+                page.setPath("");
+
+            }
 
         });
 
-        if(pageSite.getStatus().equals(StatusType.INDEXING)){
+        if(!pageSite.getStatus().equals(StatusType.INDEXED)){
             try {
-                response.put("result", "false");
+                response.put("result", false);
                 response.put("error", "Индексация еще не завершена");
                 return new ResponseEntity<>(response.toString(), HttpStatus.BAD_REQUEST);
             } catch (JSONException ex){
@@ -169,7 +174,7 @@ public class IndexingCommands {
 
         if(page.getPath().equals("")){
             try {
-                response.put("result", "false");
+                response.put("result", false);
                 response.put("error", "Данная страница находится за пределами сайтов, указанных в конфигурационном файле");
                 return new ResponseEntity<>(response.toString(),HttpStatus.BAD_REQUEST);
             }
@@ -195,13 +200,13 @@ public class IndexingCommands {
                 pageRepository.deleteById(p.getId());
             }
             else {
-                pages.add(pageSite.getUrl()+ HTMLDataFilter.slashAtEnd(p.getPath()));
+                pages.add(pageSite.getUrl()+ p.getPath());
 
             }
         });
         collector.setVisitedInternalLink(pages);
         collector.createCollector(pageSite);
-        collector.setPath(pageUrl);
+        collector.setPath(HTMLDataFilter.slashAtEnd( pageUrl));
         Iterable<Lemma> lemmaIterable = lemmaRepository.findAll();
         collector.getLemmaId().set((int) lemmaRepository.count());
         collector.getFieldId().set((int) fieldRepository.count());
@@ -216,7 +221,7 @@ public class IndexingCommands {
         int result = collector.join();
         collector.collectFrequency();
         pool.shutdown();
-        response.put("result","true");
+        response.put("result",true);
         return new ResponseEntity<>(response.toString(),HttpStatus.OK);
     }
     public List<URLCollector> getTasks() {
