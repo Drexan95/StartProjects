@@ -3,6 +3,7 @@ package main;
 import Database.DBConnection;
 import UrlService.HTMLDataFilter;
 import UrlService.URLCollector;
+import lombok.Getter;
 import main.model.*;
 import main.repository.*;
 import org.hibernate.StaleObjectStateException;
@@ -51,12 +52,15 @@ public class IndexingCommands {
     private String[] names;
     @Autowired
     URLCollector collector;
-
+    @Getter
     private final List<URLCollector> tasks = new ArrayList<>();
+    @Getter
     private final List<ForkJoinPool> pools = new ArrayList<>();
+    @Getter
     private final List<Thread> threads = new ArrayList<>();
+    private final List<Site> sites = new ArrayList<>();
 
-    protected void start() throws SQLException, IOException, ParseException, JSONException {
+    protected void start() throws SQLException, IOException, ParseException, JSONException, InterruptedException {
         Statement statement = DBConnection.getConnection().createStatement();
         statement.executeUpdate("DELETE FROM site");
         statement.executeUpdate("DELETE FROM page");
@@ -64,6 +68,7 @@ public class IndexingCommands {
         statement.executeUpdate("DELETE FROM lemma");
         statement.executeUpdate("DELETE FROM search_index");
         statement.executeUpdate("ALTER TABLE search_index AUTO_INCREMENT=1");
+
         for (int i = 0; i < urls.length; i++) {
             Site site = new Site(urls[i]);
             site.setId(i + 1);
@@ -71,12 +76,16 @@ public class IndexingCommands {
             site.setStatusTime(simpleDateFormat.parse(simpleDateFormat.format(new Date())));
             site.setStatus(StatusType.INDEXING);
             site.setLastError(null);
-            siteRepository.save(site);
+            sites.add(site);
+//                siteRepository.save(site); StableObject exception
+            Thread.sleep(1000);
             URLCollector collector = new URLCollector();
             autowireCapableBeanFactory.autowireBean(collector);
             collector.createCollector(site);
             tasks.add(collector);
         }
+        siteRepository.saveAll(sites); //no exception
+
     }
     protected void indexing(List<URLCollector> collectors)  {
         Long start = System.currentTimeMillis();
@@ -100,6 +109,8 @@ public class IndexingCommands {
                         catch (InterruptedException | SQLException | CancellationException ex) {
                             ex.printStackTrace();
                             collector.getSite().setLastError(ex.getMessage());
+                            collector.getSite().setStatus(StatusType.FAILED);
+                            siteRepository.save(collector.getSite());
                         }
                     }
 
@@ -136,44 +147,25 @@ public class IndexingCommands {
         Page page = new Page(url);
         Site pageSite = new Site();
         JSONObject response = new JSONObject();
-
         String pageUrl = page.getPath();
         System.out.println(page.getPath());
-        sites.forEach(site -> {
+        page.setPath("");
+        for(Site site : sites){
             if (pageUrl.startsWith(site.getUrl())) {
-
                 page.setSiteid(site.getId());
                 page.setSite(site.getUrl());
                 page.setSiteName(site.getName());
                 pageSite.setId(site.getId());
                 pageSite.setUrl(site.getUrl());
                 pageSite.setStatus(site.getStatus());
-                if(pageUrl.equals(site.getUrl())){
-                    page.setPath("/");
-                }
-                else   {
-                    page.setPath(pageUrl.split(site.getUrl())[1]);
-                }
-            }
-            else{
-                page.setPath("");
-
-            }
-
-        });
-
-        if(!pageSite.getStatus().equals(StatusType.INDEXED)){
-            try {
-                response.put("result", false);
-                response.put("error", "Индексация еще не завершена");
-                return new ResponseEntity<>(response.toString(), HttpStatus.BAD_REQUEST);
-            } catch (JSONException ex){
-                ex.printStackTrace();
+                page.setPath(pageUrl);
             }
         }
 
+        //==========================================================================================================================================
         if(page.getPath().equals("")){
             try {
+
                 response.put("result", false);
                 response.put("error", "Данная страница находится за пределами сайтов, указанных в конфигурационном файле");
                 return new ResponseEntity<>(response.toString(),HttpStatus.BAD_REQUEST);
@@ -182,31 +174,55 @@ public class IndexingCommands {
                 ex.printStackTrace();
             }
         }
+        else if(!pageSite.getStatus().equals(StatusType.INDEXED)){
+            try {
+
+                response.put("result", false);
+                response.put("error", "Индексация еще не завершена");
+                return new ResponseEntity<>(response.toString(), HttpStatus.BAD_REQUEST);
+            } catch (JSONException ex){
+                ex.printStackTrace();
+            }
+        }
+        if(page.getPath().equals(pageSite.getUrl())){
+            page.setPath(page.getPath()+"/");
+        }
+        //==========================================================================================================================================
         Iterable<Page> pageIterable = pageRepository.findAll();
         Set<String> pages = Collections.synchronizedSet(new HashSet<>());
-        statement = DBConnection.getConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT MAX(id) as maxId from page");
         URLCollector collector = new URLCollector();
         autowireCapableBeanFactory.autowireBean(collector);
-        while (resultSet.next()){
-            page.setId(resultSet.getInt("maxId")+1);
-            collector.getPageId().set(page.getId()-1);
-        }
+        setDataToCollector(collector,page);
+
 
         pageIterable.forEach(p -> {
-            if (p.equals(page)) {
-
+            if (p.getSiteid().equals(page.getSiteid()) && p.getPath().equals(page.getPath().split(pageSite.getUrl())[1])) {
                 searchIndexRepository.deleteSearchIndexes(p.getId());
                 pageRepository.deleteById(p.getId());
             }
-            else {
+            else if(p.getSiteid().equals(page.getSiteid())) {
                 pages.add(pageSite.getUrl()+ p.getPath());
 
             }
         });
         collector.setVisitedInternalLink(pages);
         collector.createCollector(pageSite);
-        collector.setPath(HTMLDataFilter.slashAtEnd( pageUrl));
+        collector.setPath(page.getPath());
+        ForkJoinPool pool = new ForkJoinPool();
+        pool.execute(collector);
+        collector.collectFrequency();
+        pool.shutdown();
+        response.put("result",true);
+        return new ResponseEntity<>(response.toString(),HttpStatus.OK);
+    }
+
+    public void setDataToCollector(URLCollector collector,Page page) throws SQLException {
+        statement = DBConnection.getConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT MAX(id) as maxId from page");
+        while (resultSet.next()){
+            page.setId(resultSet.getInt("maxId")+1);
+            collector.getPageId().set(page.getId()-1);
+        }
         Iterable<Lemma> lemmaIterable = lemmaRepository.findAll();
         collector.getLemmaId().set((int) lemmaRepository.count());
         collector.getFieldId().set((int) fieldRepository.count());
@@ -214,25 +230,8 @@ public class IndexingCommands {
             collector.getLemmaIds().put(lemma.getName(), lemma.getId());
             collector.getFrequency().put(lemma.getName(), lemma.getFrequency());
         });
-        ForkJoinPool pool = new ForkJoinPool();
-        System.out.println(collector.getFrequency().size());
-        pool.execute(collector);
-        System.out.println(collector.getFrequency().size());
-        int result = collector.join();
-        collector.collectFrequency();
-        pool.shutdown();
-        response.put("result",true);
-        return new ResponseEntity<>(response.toString(),HttpStatus.OK);
     }
-    public List<URLCollector> getTasks() {
-        return tasks;
-    }
-    public List<ForkJoinPool> getPools() {
-        return pools;
-    }
-    public List<Thread> getThreads() {
-        return threads;
-    }
+
 
 
 }

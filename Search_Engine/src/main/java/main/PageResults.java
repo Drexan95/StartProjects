@@ -98,6 +98,7 @@ public class PageResults {
             while (result.next()) {
                 pageCount = result.getInt("page_count");
             }
+            System.out.println("пейдж каунт с сайтом"+pageCount);
 
         }
 
@@ -129,6 +130,7 @@ public class PageResults {
                     Optional<Page> page = pageRepository.findById(id);
                     if (page.isPresent() && !page.get().getLemms().contains(lemma.getName())) {
                         lemma.getUrls().add(page.get());
+
                     }
 
                 }
@@ -140,7 +142,7 @@ public class PageResults {
 
         int finalPageCount = pageCount;  //Don't consider lemma if it appears in more than 40% of the pages
         try {
-            frequencyLemms.removeIf(lemma -> 100 / (finalPageCount / lemma.getUrls().size()) > 40 && frequencyLemms.size() > 1);
+            frequencyLemms.removeIf(lemma ->lemma.getUrls().size()!=0 && 100 / (finalPageCount / lemma.getUrls().size()) > 40 && frequencyLemms.size() > 1);
             if (frequencyLemms.size() == 1) {
                 final int RESULTS_TO_SHOW = 20;
                 frequencyLemms.get(0).setUrls(frequencyLemms.get(0).getUrls().stream().limit(RESULTS_TO_SHOW).collect(Collectors.toList()));
@@ -210,14 +212,19 @@ public class PageResults {
         return StreamEx.of(sortedPages).distinct(Page::getPath).sorted().toList();
     }
 
+
     //////////////////////////////////RANKS COLLECTED///////////////////////////////////////////////////////////////
     @Transactional
     public List<Page> getResults(SearchRequest request) {
+
         long start = System.currentTimeMillis();
         StringBuilder builder = new StringBuilder();
         List<Page> results = new ArrayList<>();
         try {
             calculateRelevancy(getListOfUrls(request)).forEach(page -> {
+                Optional<Site> site = siteRepository.findById(page.getSiteid());
+                page.setSiteName(site.get().getName());
+                page.setSite(site.get().getUrl());
                 String content = page.getContent();
                 Pattern patternTitle = Pattern.compile("<title>(.+?)</title>", Pattern.DOTALL);
                 Matcher m = patternTitle.matcher(content);
@@ -268,11 +275,12 @@ public class PageResults {
             ex.printStackTrace();
         }
         if (request.getLimit() > 0) {
-            System.out.println(System.currentTimeMillis() - start);
+
             return results.stream().skip(request.getOffset()).limit(request.getLimit()).collect(Collectors.toList());
+        } else {
+            System.out.println(System.currentTimeMillis() - start);
+            return results.stream().skip(request.getOffset()).collect(Collectors.toList()); //Найденные страницы с рассчитаной релевантностью
         }
-        System.out.println(System.currentTimeMillis() - start);
-        return results.stream().skip(request.getOffset()).collect(Collectors.toList()); //Найденные страницы с рассчитаной релевантностью
     }
 
 //==============================================================================================================================================================

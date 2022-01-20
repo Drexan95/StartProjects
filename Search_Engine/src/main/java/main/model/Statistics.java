@@ -11,24 +11,18 @@ import java.util.List;
 
 @Component
 public class Statistics {
-    public Statistics(){
+    public Statistics() {
 
     }
 
-//    @Getter
-//    @Setter
-//    private boolean result = true;
+
     @Autowired
     @Getter
     @Setter
- private    Total total;
+    private Total total;
     @Getter
     @Setter
     private final List<Site> detailed = new ArrayList<>();
 
-//    public Statistics getStatistics(){
-//
-//        return this;
-//    }
 
 }

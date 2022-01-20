@@ -40,7 +40,11 @@ public class SearchCommands {
     public ResponseEntity<?> search(@RequestParam(name = "query") String query, @Nullable String site, @Nullable Integer limit, @Nullable Integer offset) throws SQLException, IOException, JSONException
     {
 
-        SearchRequest request = new SearchRequestBuilder().setText(query).setSiteUrl(site).setLimit(limit).setOffset(offset).build();
+        SearchRequest request = new SearchRequestBuilder().setText(query)
+                .setSiteUrl(site)
+                .setLimit(limit)
+                .setOffset(offset)
+                .build();
         if(!IsIndexingFinished(request)){
             JSONObject response = new JSONObject();
             response.put("result",false);

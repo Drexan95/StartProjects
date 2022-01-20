@@ -19,7 +19,7 @@ public class Site {
 
     @JsonIgnore
     @Id
-    @Column(name = "id")
+    @Column(name = "id",columnDefinition = "BINARY(16)")
     @Getter
     @Setter
     private int id;
@@ -28,9 +28,10 @@ public class Site {
     @Getter
     @Setter
     private StatusType status;
-    @Column(name = "status_time")
+    @Column(name = "status_time",columnDefinition = "DATETIME")
     @Getter
     @Setter
+    @Temporal(TemporalType.TIMESTAMP)
     private Date statusTime;
     @Column(name = "last_error",nullable = true)
     @Getter

@@ -16,8 +16,8 @@ server:
     contextPath: /VEGA
 prefix: search_engine.
 sites :
-    url: http://www.playback.ru
-    name: Плейбек.ру
+    url: http://www.playback.ru, http://radiomv.ru
+    name: Плейбек.ру, Милицейская Волна
 
 fieldweight: 1,0.8f,0.6f,0.4f
 

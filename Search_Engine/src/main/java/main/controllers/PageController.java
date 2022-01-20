@@ -29,7 +29,10 @@ public class PageController {
 
     @Transactional
     @GetMapping("/search")
-    public ResponseEntity<?> search(@RequestParam(name = "query") String query, @Nullable String site,@Nullable Integer limit,@Nullable Integer offset) throws SQLException, IOException, JSONException
+    public ResponseEntity<?> search(@RequestParam(name = "query") String query,
+                                    @RequestParam(required = false) @Nullable String site,
+                                    @RequestParam(required = false) @Nullable Integer limit,
+                                    @RequestParam(required = false) @Nullable Integer offset) throws SQLException, IOException, JSONException
     {
        return searchCommands.search(query,site,limit,offset);
     }

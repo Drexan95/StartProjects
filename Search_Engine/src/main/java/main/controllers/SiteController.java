@@ -27,7 +27,7 @@ public class SiteController {
 
 
     @GetMapping(value = "/startIndexing", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> startIndexing() throws SQLException, IOException, ParseException, JSONException {
+    public ResponseEntity<String> startIndexing() throws SQLException, IOException, ParseException, JSONException, InterruptedException {
         return managementCommands.startIndexing();
     }
 

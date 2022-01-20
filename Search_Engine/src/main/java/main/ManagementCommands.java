@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.StreamSupport;
@@ -58,7 +60,7 @@ public class ManagementCommands {
      * @throws ParseException
      * @throws JSONException
      */
-   public ResponseEntity<String> startIndexing() throws SQLException, IOException, ParseException, JSONException {
+   public ResponseEntity<String> startIndexing() throws SQLException, IOException, ParseException, JSONException, InterruptedException {
        Iterable<Site> sites = siteRepository.findAll();
      if(urls.length==0){
          JSONObject response = new JSONObject();
@@ -78,7 +80,7 @@ public class ManagementCommands {
 
        if (!isIndexing.get()) {
            System.out.println("Indexing");
-           indexingCommands.indexing(indexingCommands.getTasks());
+
            sites.iterator().forEachRemaining(s -> s.setStatus(StatusType.INDEXING));
            siteRepository.saveAll(sites);
        }
@@ -107,28 +109,30 @@ public class ManagementCommands {
         statisticsInfo.setPages(pageRepository.count());
         statisticsInfo.setLemmas(lemmaRepository.count());
 //        boolean isIndexing = pools.size() > 0;
-        Iterable<Site> sites = siteRepository.findAll();
-        sites.iterator().forEachRemaining(site -> {
+        Iterable<Site> siteIterable = siteRepository.findAll();
+        siteIterable.forEach(site -> {
             try {
                 statisticsInfo.getDetailedData(site);
-
             } catch (SQLException | JSONException exception) {
                 exception.printStackTrace();
             }
         });
+
+
         if (siteRepository.count() > 0) {
-JSONObject response = new JSONObject();
-response.put("result",true);
-response.put("statistics",statisticsInfo.getStatistics());
+            JSONObject response = new JSONObject();
+            response.put("result", true);
+            response.put("statistics", statisticsInfo.getStatistics());
             return new ResponseEntity<>(statisticsInfo, HttpStatus.OK);
         }
-        else  return  new ResponseEntity<>("Ни один сайт не проиндексирован", HttpStatus.BAD_REQUEST);
+        else return new ResponseEntity<>("Ни один сайт не проиндексирован", HttpStatus.BAD_REQUEST);
 
     }
-    public static JSONObject jsonStartIndexing(boolean status) throws JSONException
-    {
+
+    public JSONObject jsonStartIndexing(boolean status) throws JSONException {
         JSONObject response = new JSONObject();
         if (!status) {
+            indexingCommands.indexing(indexingCommands.getTasks());
             response.put("result", true);
             return response;
         } else
@@ -137,6 +141,7 @@ response.put("statistics",statisticsInfo.getStatistics());
         return response;
 
     }
+
     public static JSONObject jsonStopIndexing(boolean status) throws JSONException
     {
         JSONObject response = new JSONObject();

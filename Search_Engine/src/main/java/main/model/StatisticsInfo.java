@@ -20,13 +20,14 @@ import java.util.List;
 
 @Component
 public class StatisticsInfo {
-    public StatisticsInfo(){
+    public StatisticsInfo() {
 
     }
+
     @com.fasterxml.jackson.annotation.JsonIgnore
-@Autowired
-@Getter
-private Total total;
+    @Autowired
+    @Getter
+    private Total total;
     @Autowired
     @Getter
     private Statistics statistics;
@@ -46,11 +47,11 @@ private Total total;
     @Getter
     @Setter
     @com.fasterxml.jackson.annotation.JsonIgnore
-    private  long sites;
+    private long sites;
     @Getter
     @Setter
     @com.fasterxml.jackson.annotation.JsonIgnore
-    private  long pages;
+    private long pages;
 
     @Setter
     @Getter
@@ -63,45 +64,40 @@ private Total total;
     private boolean isIndexing = false;
 
     @Getter
-   @Setter
+    @Setter
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final List<Site> detailed = new ArrayList<>();
 
     public void getDetailedData(Site site) throws SQLException, JSONException {
 
-      Statement statement =  DBConnection.getConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT (SELECT COUNT(id) FROM lemma WHERE site_id = "+site.getId()+") AS lemmscount," +
-                "(SELECT COUNT(id) FROM page WHERE site_id = "+site.getId()+") as pagecount");
-//        Optional<Site> siteOptional = siteRepository.findById(site.getId());
-        while (resultSet.next()){
+        Statement statement = DBConnection.getConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT (SELECT COUNT(id) FROM lemma WHERE site_id = " + site.getId() + ") AS lemmscount," +
+                "(SELECT COUNT(id) FROM page WHERE site_id = " + site.getId() + ") as pagecount");
+        while (resultSet.next()) {
             long pageCount = resultSet.getInt("pagecount");
             long lemmsCount = resultSet.getInt("lemmscount");
-           isIndex(site);
-                site.setLemmas(lemmsCount);
-                site.setPages(pageCount);
-                detailed.add(site);
+            isIndex(site);
+            site.setLemmas(lemmsCount);
+            site.setPages(pageCount);
+            statistics.getDetailed().add(site);
         }
+
         total.setIndexing(isIndexing);
         total.setSites(sites);
         total.setLemmas(lemmas);
         total.setPages(pages);
         statistics.setTotal(total);
-        statistics.getDetailed().addAll(this.detailed);
-//        statistics.put("total",total.toString());
-//        statistics.put("detailed",detailed);
-
-
-
+        statistics.getDetailed().addAll(detailed);
     }
 
-    public Statistics getStatistics(){
+    public Statistics getStatistics() {
         return statistics;
     }
+
     public boolean isIndex(Site site) {
-         if(site.getStatus().equals(StatusType.INDEXING)){
-             return isIndexing = true;
-         }
-         else return isIndexing;
+        if (site.getStatus().equals(StatusType.INDEXING)) {
+            return isIndexing = true;
+        } else return isIndexing;
     }
 
 }

@@ -59,8 +59,8 @@ public class URLCollector extends RecursiveTask<Integer> {
     private SiteRepository siteRepository;
 
 
-    private List<String> urls = new ArrayList<>();//для задач
-    private List<URLCollector> tasks = new ArrayList<>();//для посещенных;
+    private List<String> urls = new ArrayList<>();
+    private List<URLCollector> tasks = new ArrayList<>();
     @Getter
     @Setter
     private Set<String> visitedInternalLink = Collections.synchronizedSet(new HashSet<>());
@@ -91,6 +91,7 @@ public class URLCollector extends RecursiveTask<Integer> {
     }
 
     public void createCollector(Site site) throws SQLException, IOException {
+        this.site = site;
         Lem.createMorph();
         this.setSite(site);
         path = HTMLDataFilter.slashAtEnd( site.getUrl());
@@ -129,18 +130,8 @@ public class URLCollector extends RecursiveTask<Integer> {
              */
             synchronized (pageId) {
                 pageId.getAndIncrement();
-//                if(path.equals(root)){
-//                    path = HTMLDataFilter.slashAtEnd(path);
-//                }
-//                else  {
-//                    path = path.split(root)[1];
-//
-//                }
                 path = path.split(root)[1];
-//                path = HTMLDataFilter.slashAtBeggining(path);
                 page = new Page(pageId.get(), path, code, content);
-                page.setSite(site.getUrl());
-                page.setSiteName(site.getName());
                 thisPageId = page.getId();
                 addPage(page);
                 try {//update time after each page
@@ -297,6 +288,7 @@ public class URLCollector extends RecursiveTask<Integer> {
 
     private void addPage(Page page) {
         page.setSiteid(site.getId());
+        page.setSite(site.getUrl());
         page.setSiteName(site.getName());
         pageRepository.save(page);
     }
