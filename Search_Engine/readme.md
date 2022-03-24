@@ -16,7 +16,7 @@ Lombok.
 __SpringBoot app Search engine scans the sites given in application.yml file using ForkJoinPool,
 collects text from html files and extracts lemmas from it using morphology library and stores in MySQL database
 RestControllers provides interface to search pages by query request, application calculates relevancy  and return sorted pages with small snippet of text where words occur._
-_API also provides opportunity to set limit of the results, offset the results and choose specific website.__
+_API also provides the opportunity to set limit of the results, offset the results and choose specific website.__
 
 
 ____
