@@ -35,7 +35,7 @@ public class HTMLDataFilter {
 
         return result.toString();
     }
-    public  static  boolean skip(String url,String root)
+    protected   static  boolean skip(String url,String root)
     {
         if (url.contains("#") || url.contains("?")||url.trim().length() == 0||url.equalsIgnoreCase(root)||!isSupportedType(url)) {
            return true;
@@ -43,12 +43,12 @@ public class HTMLDataFilter {
         return false;
     }
 
-    public static boolean isInternalLink(String ulr,String path)
+    protected static boolean isInternalLink(String ulr,String path)
     {
         return ulr.startsWith(path);
     }
 
-    public static float calculateFieldWeight(Element element){
+    protected static float calculateFieldWeight(Element element){
         String fieldTag = element.tagName();
         float weight;
 
@@ -66,7 +66,7 @@ public class HTMLDataFilter {
         return weight;
     }
 
-    public static boolean isSupportedType(String url) {
+    protected static boolean isSupportedType(String url) {
 
         if (url == null) {
             return false;
@@ -80,7 +80,8 @@ public class HTMLDataFilter {
         }
         return (!UNSUPPORTED_TYPES.contains(ext));
     }
-   public static boolean elementIsRedundant(Element element,String text) {
+
+   protected static boolean elementIsRedundant(Element element,String text) {
 
         if (text == null || text.equals("") ){
             return true;
@@ -106,14 +107,7 @@ public class HTMLDataFilter {
    }
 
 
-//    public static  String slashAtBeggining(String siteUrl){
-//        if(!siteUrl.startsWith("/")){
-//            siteUrl ="/"+ siteUrl;
-//        }
-//        return siteUrl;
-//    }
-
-    public static  String slashAtEnd(String siteUrl){
+    protected static  String slashAtEnd(String siteUrl){
         if(!siteUrl.endsWith("/")){
             siteUrl = siteUrl+ "/";
         }

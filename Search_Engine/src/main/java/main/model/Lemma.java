@@ -17,7 +17,6 @@ public class Lemma implements Comparable<Lemma> {
     private String name;
     @Id
     @Column(name= "id")
-    @Setter
     @Getter
     private int id;
     @Setter
@@ -27,20 +26,20 @@ public class Lemma implements Comparable<Lemma> {
     @Setter
     @Getter
     @Column(name = "site_id")
-    private Integer siteId;
+    private Long siteId;
     @Transient
     @Setter
     @Getter
     private List<Page> urls = new ArrayList<>(); ;
-    @Transient
-    private Map<Page,Float> pageAndRank;
+//    @Transient
+//    private Map<Page,Float> pageAndRank;
 
 
     public Lemma(int Id,String name,int frequency){
         this.id = Id;
         this.name = name;
         this.frequency = frequency;
-        pageAndRank = new HashMap<>();
+//        pageAndRank = new HashMap<>();
 
     }
     public Lemma(){

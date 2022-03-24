@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public class DefaultController {
 
 
-    @RequestMapping("/VEGA")
+    @RequestMapping("/")
     public String index() {
         return "index";
     }

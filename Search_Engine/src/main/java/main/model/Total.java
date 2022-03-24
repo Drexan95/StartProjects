@@ -11,13 +11,11 @@ public class Total {
     @Getter
     @Setter
     private  long sites;
-
     @Getter
     @Setter
     private  long pages;
-
-    @Setter
     @Getter
+    @Setter
     private long lemmas;
 
     @Getter

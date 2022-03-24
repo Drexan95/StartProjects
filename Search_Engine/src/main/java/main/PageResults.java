@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -83,7 +83,7 @@ public class PageResults {
     @Transactional
     private List<Lemma> getListOfUrls(SearchRequest request) throws IOException, SQLException, NullPointerException {
         List<Lemma> frequencyLemms = getLemms(request);
-        AtomicInteger siteId = new AtomicInteger();
+        AtomicLong siteId = new AtomicLong();
         int pageCount = 0;
         if (!request.getSiteUrl().equals("")) {
             String siteUrl = request.getSiteUrl();
@@ -98,7 +98,7 @@ public class PageResults {
             while (result.next()) {
                 pageCount = result.getInt("page_count");
             }
-            System.out.println("пейдж каунт с сайтом"+pageCount);
+
 
         }
 
@@ -130,11 +130,8 @@ public class PageResults {
                     Optional<Page> page = pageRepository.findById(id);
                     if (page.isPresent() && !page.get().getLemms().contains(lemma.getName())) {
                         lemma.getUrls().add(page.get());
-
                     }
-
                 }
-
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }
@@ -256,11 +253,12 @@ public class PageResults {
 
                     int numberOfChars = 100;
                     if (textBorder > numberOfChars) {
-                        builder.append("...<b>").append(finalContent, lemmIndex, lastLemmIndex).append("<b>")
-                                .append(finalContent, lastLemmIndex, lastLemmIndex + numberOfChars).append("\n");
-                    } else {
-                        builder.append("...<b>").append(finalContent, lemmIndex, lastLemmIndex).append("<b>")
-                                .append(finalContent, lastLemmIndex, contentLentgh).append("\n");
+                        String word = finalContent.substring(lemmIndex,lastLemmIndex)+"</b>";
+                        builder.append("...<b>").append(word)
+                                .append(finalContent, lastLemmIndex, lastLemmIndex + numberOfChars).append("...\n");
+                    } else { String word = finalContent.substring(lemmIndex,lastLemmIndex)+"</b>";
+                        builder.append("...<b>").append(word)
+                                .append(finalContent, lastLemmIndex, contentLentgh).append("...\n");
                     }
 
                 }
@@ -279,7 +277,7 @@ public class PageResults {
             return results.stream().skip(request.getOffset()).limit(request.getLimit()).collect(Collectors.toList());
         } else {
             System.out.println(System.currentTimeMillis() - start);
-            return results.stream().skip(request.getOffset()).collect(Collectors.toList()); //Найденные страницы с рассчитаной релевантностью
+            return results.stream().skip(request.getOffset()).collect(Collectors.toList()); //Page results containing calculated relevancy
         }
     }
 

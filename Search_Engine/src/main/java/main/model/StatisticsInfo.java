@@ -7,7 +7,6 @@ import main.repository.FieldRepository;
 import main.repository.LemmaRepository;
 import main.repository.PageRepository;
 import main.repository.SiteRepository;
-import net.minidev.json.annotate.JsonIgnore;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -72,13 +71,15 @@ public class StatisticsInfo {
 
         Statement statement = DBConnection.getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT (SELECT COUNT(id) FROM lemma WHERE site_id = " + site.getId() + ") AS lemmscount," +
-                "(SELECT COUNT(id) FROM page WHERE site_id = " + site.getId() + ") as pagecount");
+                "(SELECT COUNT(id) FROM page WHERE site_id = " + site.getId() + ") as pagecount,(SELECT last_error FROM site WHERE id = "+site.getId()+") AS error");
         while (resultSet.next()) {
             long pageCount = resultSet.getInt("pagecount");
             long lemmsCount = resultSet.getInt("lemmscount");
+            String error = resultSet.getString("error");
             isIndex(site);
             site.setLemmas(lemmsCount);
             site.setPages(pageCount);
+            site.setError(error);
             statistics.getDetailed().add(site);
         }
 
@@ -88,6 +89,7 @@ public class StatisticsInfo {
         total.setPages(pages);
         statistics.setTotal(total);
         statistics.getDetailed().addAll(detailed);
+
     }
 
     public Statistics getStatistics() {

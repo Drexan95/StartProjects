@@ -40,7 +40,7 @@ public class Page implements  Comparable<Page>{
     @Column(name = "site_id")
     @Getter
     @Setter
-    private Integer siteid;
+    private Long siteid;
     @Transient
     @Getter
     @Setter
@@ -64,8 +64,6 @@ public class Page implements  Comparable<Page>{
     @Getter
     @Setter
     private List<String> lemms = new ArrayList<>();;
-    @Transient
-    private float lemmRank;
 
     public Page(int id, String path,int code,String content) {
         this.id = id;
@@ -77,12 +75,13 @@ public class Page implements  Comparable<Page>{
     public Page(String path){
         this.path = path;
     }
+
     public Page(){
 
     }
 
 
-    //    @JsonIgnore
+
     @JsonIgnore
     public String getContent() {
         return content;

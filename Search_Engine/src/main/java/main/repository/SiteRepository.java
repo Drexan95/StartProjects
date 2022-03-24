@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SiteRepository extends CrudRepository<Site,Integer> {
+public interface SiteRepository extends CrudRepository<Site,Long> {
 
 }

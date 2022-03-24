@@ -61,7 +61,7 @@ public class URLCollector extends RecursiveTask<Integer> {
 
     private List<String> urls = new ArrayList<>();
     private List<URLCollector> tasks = new ArrayList<>();
-    @Getter
+
     @Setter
     private Set<String> visitedInternalLink = Collections.synchronizedSet(new HashSet<>());
     @Getter
@@ -80,7 +80,6 @@ public class URLCollector extends RecursiveTask<Integer> {
     @Getter
     private final static AtomicInteger pageId = new AtomicInteger(0);
     @Getter
-
     private final static AtomicInteger fieldId = new AtomicInteger(0);
     @Getter
     private final static AtomicInteger lemmaId = new AtomicInteger(0);
@@ -143,7 +142,7 @@ public class URLCollector extends RecursiveTask<Integer> {
 //
                 } catch (ParseException exception) {
                     exception.printStackTrace();
-                    site.setLastError(exception.getMessage());
+                    site.setError("Ошибка! Страница сайта недоступна \\n"+exception.getMessage());
                 }
             }
 //======================================HTML Elements================================================//
@@ -197,7 +196,7 @@ public class URLCollector extends RecursiveTask<Integer> {
 
         } catch (IOException | InterruptedException | NullPointerException | SQLException exception) {
             exception.printStackTrace();
-            site.setLastError(exception.getMessage());
+            site.setError("Ошибка! Страница сайта недоступна \\n"+exception.getMessage());
         }
         return pageCount;
     }
@@ -214,7 +213,7 @@ public class URLCollector extends RecursiveTask<Integer> {
 
             } catch (NullPointerException ex) {
                 ex.printStackTrace();
-                site.setLastError(ex.getMessage());
+                site.setError(ex.getMessage());
             }
 
         }

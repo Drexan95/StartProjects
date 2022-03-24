@@ -2,12 +2,13 @@ package main.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.repository.SearchIndexRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class Statistics {
@@ -22,7 +23,7 @@ public class Statistics {
     private Total total;
     @Getter
     @Setter
-    private final List<Site> detailed = new ArrayList<>();
+    private final Set<Site> detailed = new HashSet<>();
 
 
 }

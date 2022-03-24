@@ -1,10 +1,12 @@
 package main;
 
 import Database.DBConnection;
-import UrlService.HTMLDataFilter;
 import UrlService.URLCollector;
 import lombok.Getter;
-import main.model.*;
+import main.model.Lemma;
+import main.model.Page;
+import main.model.Site;
+import main.model.StatusType;
 import main.repository.*;
 import org.hibernate.StaleObjectStateException;
 import org.json.JSONException;
@@ -15,10 +17,11 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,7 +48,7 @@ public class IndexingCommands {
     private Statement statement;
     @Autowired
     private AutowireCapableBeanFactory autowireCapableBeanFactory;
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @Value("${sites.url}")
     private String[] urls;
     @Value("${sites.name}")
@@ -58,78 +61,83 @@ public class IndexingCommands {
     private final List<ForkJoinPool> pools = new ArrayList<>();
     @Getter
     private final List<Thread> threads = new ArrayList<>();
-    private final List<Site> sites = new ArrayList<>();
+    private final  HashSet<Site> sites = new HashSet<>();
+    private Site site;
 
-    protected void start() throws SQLException, IOException, ParseException, JSONException, InterruptedException {
-        Statement statement = DBConnection.getConnection().createStatement();
-        statement.executeUpdate("DELETE FROM site");
-        statement.executeUpdate("DELETE FROM page");
-        statement.executeUpdate("DELETE FROM field");
-        statement.executeUpdate("DELETE FROM lemma");
-        statement.executeUpdate("DELETE FROM search_index");
-        statement.executeUpdate("ALTER TABLE search_index AUTO_INCREMENT=1");
+    @org.springframework.transaction.annotation.Transactional
+    void start() throws SQLException, IOException, ParseException, StaleObjectStateException, InterruptedException
+    {
 
+        String query = "INSERT INTO site(id, last_error, name, status, status_time, url) VALUES(?, ? , ? , ? , ?, ?)";
+        PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
+        Thread.sleep(1000);
         for (int i = 0; i < urls.length; i++) {
-            Site site = new Site(urls[i]);
-            site.setId(i + 1);
+            site = new Site(urls[i]);
+            site.setId((long) (i + 1));
             site.setName(names[i]);
             site.setStatusTime(simpleDateFormat.parse(simpleDateFormat.format(new Date())));
-            site.setStatus(StatusType.INDEXING);
-            site.setLastError(null);
-            sites.add(site);
-//                siteRepository.save(site); StableObject exception
-            Thread.sleep(1000);
+            site.setStatus(StatusType.FAILED);
+            site.setError("none");
+            preparedStatement.setLong(1,site.getId());
+            preparedStatement.setString(2,"none");
+            preparedStatement.setString(3,site.getName());
+            preparedStatement.setString(4, String.valueOf(StatusType.FAILED));
+            java.sql.Date date = new java.sql.Date(site.getStatusTime().getTime());
+            preparedStatement.setDate(5,date);
+            preparedStatement.setString(6,site.getUrl());
+            preparedStatement.executeUpdate();
+
             URLCollector collector = new URLCollector();
             autowireCapableBeanFactory.autowireBean(collector);
             collector.createCollector(site);
             tasks.add(collector);
         }
-        siteRepository.saveAll(sites); //no exception
+
+//        siteRepository.saveAll(sites);
 
     }
-    protected void indexing(List<URLCollector> collectors)  {
+
+    void indexing(List<URLCollector> collectors) throws SQLException {
+
         Long start = System.currentTimeMillis();
         collectors.forEach(collector -> {
-            try {
+
                 threads.add(new Thread(){
                     @Override
                     public void run() {
                         try {
+
                             Thread.sleep(1000);
                             ForkJoinPool pool = new ForkJoinPool();
                             pools.add(pool);
                             pool.execute(collector);
                             int pageCount = collector.join();
                             collector.collectFrequency();
-                            collector.getSite().setStatus(StatusType.INDEXED);
-                            siteRepository.save(collector.getSite());
                             System.out.println("Сайт " + collector.getSite().getName() + " проиндексирован,кол-во ссылок - "+pageCount);
                             System.out.println("Время выполнения: " + (System.currentTimeMillis() - start));
+                                                     Optional<Site> optionalSite =   siteRepository.findById(collector.getSite().getId());
+                       if(optionalSite.isPresent()){
+                           Site site = optionalSite.get();
+                           site.setStatus(StatusType.INDEXED);
+                           siteRepository.save(site);
+                       }
                         }
                         catch (InterruptedException | SQLException | CancellationException ex) {
                             ex.printStackTrace();
-                            collector.getSite().setLastError(ex.getMessage());
+                            collector.getSite().setError("Ошибка индексации: "+ ex.getMessage());
                             collector.getSite().setStatus(StatusType.FAILED);
                             siteRepository.save(collector.getSite());
                         }
                     }
 
                 });
-
-            }
-            catch (StaleObjectStateException exception)
-            {
-                Optional<Site> siteOptional = siteRepository.findById(collector.getSite().getId());
-                if (siteOptional.isPresent()) {
-                    siteOptional.get().setLastError(exception.getMessage());
-                    siteRepository.save(siteOptional.get());
-                }
-                exception.printStackTrace();
-            }
         });
         threads.forEach(Thread::start);
         pools.forEach(ForkJoinPool::shutdown);
         pools.clear();
+        threads.clear();
+        tasks.clear();
+        sites.clear();
     }
     /**
      * Method start reindexing the given page
@@ -179,7 +187,7 @@ public class IndexingCommands {
 
                 response.put("result", false);
                 response.put("error", "Индексация еще не завершена");
-                return new ResponseEntity<>(response.toString(), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(response.toString(), HttpStatus.CONFLICT);
             } catch (JSONException ex){
                 ex.printStackTrace();
             }
@@ -216,7 +224,7 @@ public class IndexingCommands {
         return new ResponseEntity<>(response.toString(),HttpStatus.OK);
     }
 
-    public void setDataToCollector(URLCollector collector,Page page) throws SQLException {
+    private void setDataToCollector(URLCollector collector,Page page) throws SQLException {
         statement = DBConnection.getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT MAX(id) as maxId from page");
         while (resultSet.next()){
@@ -231,7 +239,21 @@ public class IndexingCommands {
             collector.getFrequency().put(lemma.getName(), lemma.getFrequency());
         });
     }
+    @org.springframework.transaction.annotation.Transactional
+     void clearDB() throws SQLException {
+
+                Statement statement = DBConnection.getConnection().createStatement();
+                statement.executeUpdate("DELETE FROM site");
+                statement.executeUpdate("DELETE FROM page");
+                statement.executeUpdate("DELETE FROM field");
+                statement.executeUpdate("DELETE FROM lemma");
+                statement.executeUpdate("DELETE FROM search_index");
+                statement.executeUpdate("ALTER TABLE search_index AUTO_INCREMENT=1");
+
+            }
+
+    }
 
 
 
-}
+

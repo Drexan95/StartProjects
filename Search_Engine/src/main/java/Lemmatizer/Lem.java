@@ -2,32 +2,21 @@ package Lemmatizer;
 
 import org.apache.lucene.morphology.LuceneMorphology;
 import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.thymeleaf.util.ArrayUtils;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
 
 public class Lem  {
-    static final List<String> signs = Arrays.asList("ПРЕДЛ", "МЕЖД", "СОЮЗ", "ЧАСТ");
-    static LuceneMorphology luceneMorphology= null;
 
-//    public static void main(String[] args) throws IOException {
-//        createMorph();
-//        System.out.println(luceneMorphology.getNormalForms("народного"));
-//    }
+    static final List<String> signs = Arrays.asList("ПРЕДЛ", "МЕЖД", "СОЮЗ", "ЧАСТ");
+    static LuceneMorphology luceneMorphology = null;
+
 
     public static void createMorph() throws IOException {
         luceneMorphology = new RussianLuceneMorphology();
-    }
-    public static LuceneMorphology getLuceneMorphology() {
-        return luceneMorphology;
     }
 
 
@@ -75,8 +64,4 @@ public class Lem  {
 
     }
 
-    public static List<String> getLemms(String word) throws IOException {
-        LuceneMorphology luceneMorphology = new RussianLuceneMorphology();
-        return luceneMorphology.getNormalForms(word);
-    }
 }

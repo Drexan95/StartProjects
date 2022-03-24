@@ -1,8 +1,11 @@
 package Database;
 
+import lombok.SneakyThrows;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBConnection {
     private static Connection connection;
@@ -12,9 +15,6 @@ public class DBConnection {
     private static final String DB_PASS = "ynzohwtd101";
 
 
-    private DBConnection() throws SQLException {
-
-    }
 
     public static Connection getConnection() throws SQLException {
         if (connection == null) {
@@ -31,4 +31,6 @@ public class DBConnection {
         }
         return connection;
     }
+
+
 }

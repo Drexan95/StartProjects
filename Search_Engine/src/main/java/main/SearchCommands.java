@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
 public class SearchCommands {
@@ -51,8 +50,8 @@ public class SearchCommands {
             response.put("error","Индексация не завершена");
             return new ResponseEntity<>(response.toString(),HttpStatus.OK);
         }
+
         List<Page> results = pageResults.getResults(request);
-//        results.forEach(System.out::println);
 
         if(query.equals("")){
             JSONObject response = new JSONObject();
@@ -73,7 +72,7 @@ public class SearchCommands {
         }
     }
 
-    public boolean IsIndexingFinished(SearchRequest request) {
+    private boolean IsIndexingFinished(SearchRequest request) {
 
         Iterable<Site> sites = siteRepository.findAll();
         for (Site site : sites) {

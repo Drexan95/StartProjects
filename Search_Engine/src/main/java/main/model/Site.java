@@ -15,14 +15,17 @@ public class Site {
     public Site(String url){
         this.url = url;
     }
-    public Site(){}
+    public Site(){
+
+    }
+
 
     @JsonIgnore
     @Id
     @Column(name = "id",columnDefinition = "BINARY(16)")
     @Getter
     @Setter
-    private int id;
+    private Long id;
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     @Getter
@@ -31,12 +34,13 @@ public class Site {
     @Column(name = "status_time",columnDefinition = "DATETIME")
     @Getter
     @Setter
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date statusTime;
     @Column(name = "last_error",nullable = true)
     @Getter
     @Setter
-    private String lastError;
+    private String error;
     @Column(name = "url")
     @Getter
     @Setter
@@ -53,7 +57,33 @@ public class Site {
     @Setter
     @Getter
     private long lemmas;
+    @Override
+    public int hashCode(){
+        final int primal = 11;
 
+        return primal+ name.hashCode();
+    }
+    @Override
+    public  boolean equals(final  Object obj){
+        if(this == obj){
+            return true;
+        }
+        if(obj == null){
+            return  false;
+        }
+        if(getClass() !=obj.getClass()){
+            return false;
+        }
+        final Site other = (Site) obj;
+        if(name == null){
+            if(other.name != null){
+                return false;
+            }
+        }else if(!name.equals(other.name)){
+            return false;
+        }
+        return true;
+    }
 
 
 }
