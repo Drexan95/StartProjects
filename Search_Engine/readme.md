@@ -1,4 +1,5 @@
-#Search Engine
+# Search Engine
+
 ![img_4.png](img_4.png)
 _Java v1.8.0_322_
 
@@ -10,11 +11,12 @@ JSOUP,
 SQL,
 Morphology Library,
 Lombok.
-
+____
 _SpringBoot app Search engine scan the sites given in application.yml file using ForkJoinPool,
 collect text from html files and extract lemmas from it using morphology library and store in MySQL database
 RestControllers provides interface to search pages by query request,application calculate relevancy  and return sorted pages with small snippet of text where words occur._
 _API also provides opportunity to set limit of the results, offset the results and choose specific website._
+____
 ```yaml
 sites :
     url: http://www.playback.ru, http://radiomv.ru
@@ -39,6 +41,7 @@ public class PageController{
 
 }
 ```
+____
 Statistics method returns info about indexed sites to the dashboard.
 ![img.png](img.png)
 Management section used to **start/stop** indexing or to **index/reindex specific webpage**, but page have to be related to sites given in application.yml. 
