@@ -79,6 +79,6 @@ public class HTMLDataFilter
 }
 ```
 ____
-:three:  The **search results** looks likes this: looks likes this:
+:three:  The **search results** looks likes this:
 ![img_3.png](img_3.png)
 
