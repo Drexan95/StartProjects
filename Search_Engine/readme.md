@@ -13,10 +13,10 @@ SQL,
 Morphology Library,
 Lombok.
 
-__SpringBoot app Search engine scans the sites given in application.yml file using ForkJoinPool,
-collects text from html files and extracts lemmas from it using morphology library and stores in MySQL database
-RestControllers provides interface to search pages by query request, application calculates relevancy  and return sorted pages with small snippet of text where words occur._
-_API also provides the opportunity to set limit of the results, offset the results and choose specific website.__
+__SpringBoot app Search engine scan the sites given in application.yml file using ForkJoinPool,
+collect text from html files and extract lemmas from it using morphology library and store in MySQL database
+RestControllers provides interface to search pages by query request,application calculate relevancy  and return sorted pages with small snippet of text where words occur._
+_API also provides opportunity to set limit of the results, offset the results and choose specific website.__
 
 
 ____
@@ -53,7 +53,7 @@ ____
 ![img_1.png](img_1.png)
 ____
 
-Application calculates webpage relevancy based on the search query: word frequency + in which HTML field they occur.
+Application calculate webpage relevancy based on the search query: word frequency + in which HTML field it occurs.
 You can also set which **HTML field** is more relevant to user by changing the field _weight_
 ```yaml
 fieldweight: 1,0.8f,0.6f,0.4f
@@ -79,6 +79,6 @@ public class HTMLDataFilter
 }
 ```
 ____
-:three: The **search results** looks likes this:
+:three: The **results** of the search command looks likes this:
 ![img_3.png](img_3.png)
 
