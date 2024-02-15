@@ -38,5 +38,3 @@ Option option = new Option("e","example",true,"Описание параметр
 :page_facing_up: *Пример запуска* :
 
 java -jar Data_Writer-1.0-jar-with-dependencies.jar -f -p new_ -o somepath\\somedirectory in1.txt in2.txt
-
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-sizehttps://github.com/Drexan95/StartProjects/tree/master)
