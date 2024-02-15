@@ -1,0 +1,6 @@
+Service\Eraser.class
+org\example\App.class
+Service\Statistics.class
+Service\FileFinder.class
+Service\FileWriter.class
+Service\FileReader.class
